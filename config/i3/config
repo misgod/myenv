@@ -181,7 +181,7 @@ bindsym $mod+r mode "resize"
 bar {
     colors {
         # Whole color settings
-        background #000000
+        background #000010
         statusline #ffffff
         separator  #666666
 
@@ -198,6 +198,7 @@ bar {
     #tray_output primary
     #mode hide
     output LVDS1
+    tray_padding 1
 }
 
 
@@ -222,7 +223,8 @@ bindsym $mod+Return exec urxvt
 #i3-sensible-terminal
 
 #app shortcut
-bindsym $mod+q exec pcmanfm-qt
+bindsym $mod+q execurxvt -name MidnightCommander -e  mc
+#pcmanfm-qt
 
 bindsym Control+Mod1+Delete exec urxvt -name htop -e htop
 for_window [class="htop"] floating enable

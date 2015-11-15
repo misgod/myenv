@@ -2,7 +2,6 @@
 
 toggle_calc(){
     PID=eval "pidof gsimplecal"
-    notify-send "$PID"
     if [ -z "$PID" ]; then
         gsimplecal &
     else
@@ -17,6 +16,6 @@ case $BLOCK_BUTTON in
 esac
 
 
-date '+%Y-%m-%d  <span background="yellow" foreground="#303030"><b> %H:%M </b></span>'
+date '+<span size="large" foreground="#44eeff">%H:%M</span>'
 
 
