@@ -14,7 +14,7 @@ set $tag1 "1: main"
 set $tag2 "2: web"
 set $tag3 "3: dev"
 set $tag4 "4: dev"
-set $tag5 "5: doc"
+set $tag5 "5: chat"
 set $tag6 "6: network"
 set $tag7 "7: other"
 set $tag8 "8: 8"
@@ -33,6 +33,15 @@ for_window [class="^smplayer$"] focus
 
 assign [class="^vlc$"] $tag1
 for_window [class="^vlc$"] focus
+
+for_window [class="^urxvt$"] focus
+
+assign [class="^Skype$"] $tag5
+
+assign [class="^Thunderbird$"] $tag1
+
+assign [class="^VirtualBox$"] $tag7
+
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -197,7 +206,7 @@ bar {
     
     #tray_output primary
     #mode hide
-    output LVDS1
+    #output LVDS1
     tray_padding 1
 }
 
