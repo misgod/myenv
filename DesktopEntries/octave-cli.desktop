@@ -1,0 +1,12 @@
+[Desktop Entry]
+Name=GNU Octave(Command Line)
+Comment=Scientific Computing using GNU Octave
+TryExec=/usr/bin/octave-cli
+Exec=/usr/bin/octave-cli
+Icon=/usr/share/octave/4.0.0/imagelib/octave-logo.svg
+Terminal=true
+Type=Application
+Categories=Education;Science;Math;
+StartupNotify=false
+MimeType=text/x-octave;text/x-matlab;
+X-Desktop-File-Install-Version=0.22
