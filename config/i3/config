@@ -21,18 +21,42 @@ set $tag8 "8: 8"
 set $tag9 "9: 9"
 set $tag10 "10: 10"
 
-
-assign [class="^chromium$"] $tag2
-for_window [class="^chromium$"] focus
-
-assign [class="^emacs$"] $tag3
-for_window [class="^chromium$"] focus
+#tag1
+assign [class="^pcmanfm-qt$"] $tag1
+for_window [class="^pcmanfm-qt$"] focus
 
 assign [class="^smplayer$"] $tag1
 for_window [class="^smplayer$"] focus
 
 assign [class="^vlc$"] $tag1
 for_window [class="^vlc$"] focus
+
+assign [class="^Thunderbird$"] $tag1
+
+assign [class="^htop$"] $tag1
+for_window [class="^htop$"] focus
+
+assign [class="^MidnightCommander$"] $tag1
+for_window [class="^MidnightCommander$"] focus
+
+#tag2
+assign [class="^chromium$"] $tag2
+for_window [class="^chromium$"] focus
+
+assign [class="^emacs$"] $tag4
+for_window [class="^emacs$"] focus
+
+
+assign [class="^Sky$"] $tag6
+
+assign [class="^Skype$"] $tag6
+
+assign [class="^jetbrains-studi$"] $tag3
+
+assign [class="^libreoffice"] $tag5
+for_window [class="^libreoffice"] focus
+
+
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.

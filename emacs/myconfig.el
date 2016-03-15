@@ -13,7 +13,6 @@
 ;; Default font
 (set-face-attribute 'default nil :family "Inconsolata" :height 160)
 
-
 ;; disable scrollbar
 (toggle-scroll-bar -1)
 (scroll-bar-mode -1) 
@@ -27,7 +26,7 @@
 
 ;;maximized frame
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
-
+(add-to-list 'default-frame-alist '((font . "Inconsolata-12")))
 
 
 ;;################ Binding ##############3
