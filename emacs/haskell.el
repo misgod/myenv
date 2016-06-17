@@ -29,8 +29,8 @@
 (eval-after-load 'haskell-cabal
   '(define-key haskell-cabal-mode-map (kbd "C-c C-o") 'haskell-compile))
 
-(eval-after-load 'flycheck
-    '(add-hook 'flycheck-mode-hook #'flycheck-haskell-setup))
+;;(eval-after-load 'flycheck
+;;    '(add-hook 'flycheck-mode-hook #'flycheck-haskell-setup))
 
 (eval-after-load 'haskell-mode
   '(define-key haskell-mode-map [f8] 'haskell-navigate-imports))
