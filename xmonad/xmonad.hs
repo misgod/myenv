@@ -21,8 +21,8 @@ import qualified XMonad.StackSet as W
 
 
 xmobarEscape = concatMap doubleLts
-  where	doubleLts '<' = "<<"
-       	doubleLts x = [x]
+  where doubleLts '<' = "<<"
+        doubleLts x = [x]
 
 -- Define the names of all workspaces
 ws = ["1:main","2:web","3:dev","4:dev","5:doc","6:chat"] ++ map show [7..9]
@@ -34,29 +34,28 @@ myWorkspaces = clickable . (map xmobarEscape) $ ws
                                       let n = i ]
 
 myManageHook = composeAll 
-	[ className =? "Skype" --> doShift "2:chat"
-	, className =? "Chromium" --> viewShift "2:web"
-	, className =? "Firefox"  --> viewShift "2:web"
-	, className =? "jetbrains-idea-ce" --> doShift "3:dev"
-	, className =? "Emacs" --> doShift "3:dev"
-	, className =? "Gimp" --> viewShift "1:main"
-	, className =? "lximage-qt" --> doFloat 
-     , className =? "transmission" --> doShift "7"
-	, className =? "smplayer" --> viewShift "1:main"
-	, className =? "Vlc" --> viewShift "1:main"
+        [ className =? "Skype" --> doShift "2:chat"
+        , className =? "Chromium" --> viewShift "2:web"
+        , className =? "Firefox"  --> viewShift "2:web"
+        , className =? "jetbrains-idea-ce" --> doShift "3:dev"
+        , className =? "Emacs" --> doShift "3:dev"
+        , className =? "Gimp" --> viewShift "1:main"
+        , className =? "lximage-qt" --> doFloat 
+    , className =? "transmission" --> doShift "7"
+        , className =? "smplayer" --> viewShift "1:main"
+        , className =? "Vlc" --> viewShift "1:main"
     , className =? "htop" --> doCenterFloat
     , className =? "sublime-text" --> viewShift "3:dev"
     , resource  =? "libreoffice" --> doShift "5:doc"
     , transience'
-	, isFullscreen --> doFullFloat
+        , isFullscreen --> doFullFloat
     , isDialog --> doCenterFloat
-	]
+        ]
         where viewShift = doF . liftM2 (.) W.greedyView W.shift
 
 
 keysToAdd x = [((mod4Mask, xK_F4), kill)
               ,((mod4Mask, xK_p) , spawn "j4-dmenu-desktop --dmenu=\"dmenu -i -p '->' -l 5 -fn 'Sans-14'\"")
-              ,((mod4Mask, xK_Return) , spawn "urxvt")
               ,((mod4Mask, xK_Return) , spawn "urxvt")
               ,((mod4Mask, xK_a) , spawn "pcmanfm-qt")
               ,((mod1Mask .|. controlMask, xK_Delete), spawn "urxvt -name htop -e htop") 
@@ -108,7 +107,7 @@ myConfig = desktopConfig
      , manageHook = myManageHook <+> manageHook desktopConfig
      , keys = myKeys
      , startupHook = do 
-     	    setWMName "LG3D"  --workaround for java app
+            setWMName "LG3D"  --workaround for java app
             spawn "feh --bg-scale ~/.xmonad/wallpaper.jpg"
             spawn "xsetroot -cursor_name left_ptr"
      }  

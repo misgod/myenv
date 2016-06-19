@@ -1,6 +1,6 @@
 #!/bin/bash
 
- PID=eval "pidof gsimplecal"
+PID=$(pidof gsimplecal)
     if [ -z "$PID" ]; then
         gsimplecal &
     else
