@@ -59,7 +59,7 @@ Config {
                              ] 50
                           
         -- memory usage monitor
-        , Run Memory         [ "--template" ,"<used> M"
+        , Run Memory         [ "--template" ,"<action=`urxvt -name htop -e htop` button=1><used>M</action>"
                              , "--Low"      , "3000"        -- units: Mb
                              , "--High"     , "7000"        -- units: Mb
                              , "--low"      , "gray"
