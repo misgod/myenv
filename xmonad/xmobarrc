@@ -1,7 +1,7 @@
 Config { 
 
    -- appearance
-     font =         "xft:Sans:size=12:normal:antialias=true"
+     font =         "xft:Sans:size=12,FontAwesome:size=12:normal:antialias=true"
    , bgColor =      "black"
    , fgColor =      "#929252"
    , position =     BottomW L 100
@@ -12,7 +12,7 @@ Config {
    -- layout
    , sepChar =  "%"   -- delineator between plugin names and straight text
    , alignSep = "}{"  -- separator between left-right alignment
-   , template = "  %UnsafeStdinReader% }{ %multicpu% | %coretemp% | %memory% | %battery%  | %bright% | %date% | <action=`/home/sam/git/myenv/xmonad/script/tray.sh` button=1>  </action> "
+   , template = "  %UnsafeStdinReader% }{ Cpu: %multicpu% | %coretemp% | %memory% |  %battery%  |  %bright% |  %date% | <action=`/home/sam/git/myenv/xmonad/script/tray.sh` button=1>  </action> "
 
    -- general behavior
    , lowerOnStart =     True    -- send to bottom of window stack on start
@@ -41,28 +41,28 @@ Config {
         -- weather monitor
         [
         -- cpu activity monitor
-          Run MultiCpu       [ "--template" , "Cpu: [<total0>% <total1>% <total2>% <total3>%]"
+          Run MultiCpu       [ "--template" , "[<total0>﹪ <total1>﹪ <total2>﹪ <total3>﹪]"
                              , "--Low"      , "50"         -- units: %
                              , "--High"     , "85"         -- units: %
-                             , "--low"      , "darkgreen"
+                             , "--low"      , "gray"
                              , "--normal"   , "darkorange"
                              , "--high"     , "darkred"
                              ] 20
 
         -- cpu core temperature monitor
-        , Run CoreTemp       [ "--template" , "<core0>°C"
+        , Run CoreTemp       [ "--template" , "<core0>°c"
                              , "--Low"      , "60"        -- units: °C
                              , "--High"     , "80"        -- units: °C
-                             , "--low"      , "darkgreen"
+                             , "--low"      , "gray"
                              , "--normal"   , "darkorange"
                              , "--high"     , "red"
                              ] 50
                           
         -- memory usage monitor
-        , Run Memory         [ "--template" ,"<used>M"
+        , Run Memory         [ "--template" ,"<used> M"
                              , "--Low"      , "3000"        -- units: Mb
                              , "--High"     , "7000"        -- units: Mb
-                             , "--low"      , "darkgreen"
+                             , "--low"      , "gray"
                              , "--normal"   , "darkorange"
                              , "--high"     , "darkred"
                              ] 20
@@ -72,14 +72,14 @@ Config {
                              , "--Low"      , "15"        -- units: %
                              , "--High"     , "80"        -- units: %
                              , "--low"      , "red"
-                             , "--normal"   , "darkorange"
+                             , "--normal"   , "orange"
                              , "--high"     , "darkgreen"
                              , "--" , "-O"	, "<fc=#dAA520>Charging</fc>"
                                     , "-i"	, "<fc=#006000>Charged</fc>"
                                     , "-o"  , "<left>% (<timeleft>)"
                              ] 50
           --, Run Volume "default" "Master" [] 10
-          , Run Date "<action=`/home/sam/git/myenv/xmonad/script/calc.sh` button=1><fc=#ee9a00>%m-%_d %H:%M</fc></action>" "date" 20
+          , Run Date "<action=`/home/sam/git/myenv/xmonad/script/calc.sh` button=1><fc=#00ff00>%H:%M</fc></action>" "date" 20
           --, Run Brightness ["-D", "intel_backlight"] 60
           ,Run Com  "sh" ["/home/sam/git/myenv/xmonad/script/backlight.sh"] "bright" 10
         , Run UnsafeStdinReader
