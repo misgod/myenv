@@ -2,7 +2,12 @@
 
 
 show() {
-    xbacklight -get | { read i; printf "%.0f" $i; }
+	template="%.0f"
+    for i in 3 4 5; do
+       template="<action=\`$0 $i\` button=$i>$template</action>"
+    done
+
+    xbacklight -get | { read i; printf "$template" $i; }
 }
 
 
