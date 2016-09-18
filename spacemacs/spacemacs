@@ -256,17 +256,20 @@ you should place your code here."
   (setq org-hide-emphasis-markers t)
   (setq org-image-actual-width nil)
   (setq geiser-repl-use-other-window nil)
-  
+  (setq org-format-latex-options `(plist-put org-format-latex-options :foreground auto :background auto :scale 1.8))
+
+  ;;choose racket as scheme backend implementation
+  (setq geiser-active-implementations '(racket))
 
   (global-set-key  (kbd "C-x <down>") 'bs-show)
   ;; comment/uncomment
   (global-set-key (kbd "M-/") 'comment-or-uncomment-region)
 
 
-  ;; use apsell as ispell backend  
-  (setq-default ispell-program-name "aspell")  
-  ;; use American English as ispell default dictionary  
-  (ispell-change-dictionary "american" t)  
+  ;; use apsell as ispell backend
+  (setq-default ispell-program-name "aspell")
+  ;; use American English as ispell default dictionary
+  (ispell-change-dictionary "american" t)
 
   ;; (spacemacs//set-monospaced-font "Inconsolata" "Source Han Sans TC" 18 18)
   ;; Workaround for Org表格對齊
