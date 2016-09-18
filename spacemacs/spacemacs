@@ -32,12 +32,15 @@ values."
      ;; (shell :variables
      ;;        shell-default-height 30
      ;;        shell-default-position 'bottom)
-     ;;spell-checking
+     spell-checking
      syntax-checking
-     ;; version-control
+     version-control
      clojure
      python
+     ipython-notebook
      yaml
+     chinese
+     scheme
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -105,11 +108,12 @@ values."
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font. `powerline-scale' allows to quickly tweak the mode-line
    ;; size to make separators look not too crappy.
-   dotspacemacs-default-font '("Source Code Pro"
-                               :size 14
+   dotspacemacs-default-font '("Monaco"
+                               :size 18
                                :weight normal
                                :width normal
                                :powerline-scale 1.1)
+   
    ;; The leader key
    dotspacemacs-leader-key "SPC"
    ;; The leader key accessible in `emacs state' and `insert state'
@@ -249,11 +253,28 @@ This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
   (setq clojure-enable-fancify-symbols t)
-  (define-key global-map (kbd "C-=") 'text-scale-increase)
-  (define-key global-map (kbd "C--") 'text-scale-decrease)
+  (setq org-hide-emphasis-markers t)
+  (setq org-image-actual-width nil)
+  (setq geiser-repl-use-other-window nil)
+  
+
   (global-set-key  (kbd "C-x <down>") 'bs-show)
   ;; comment/uncomment
   (global-set-key (kbd "M-/") 'comment-or-uncomment-region)
+
+
+  ;; use apsell as ispell backend  
+  (setq-default ispell-program-name "aspell")  
+  ;; use American English as ispell default dictionary  
+  (ispell-change-dictionary "american" t)  
+
+  ;; (spacemacs//set-monospaced-font "Inconsolata" "Source Han Sans TC" 18 18)
+  ;; Workaround for Org表格對齊
+  (set-face-attribute 'default nil :font
+                      (format   "%s:pixelsize=%d"  "Inconsolata"  18))
+  (dolist (charset '(kana han cjk-misc bopomofo))
+    (set-fontset-font (frame-parameter nil 'font) charset
+                      (font-spec :family "Source Han Sans TC" )))
 
   (setq org-capture-templates
         '(("t" "Todo" entry (file+headline "~/git/org/task.org" "Tasks")
@@ -263,7 +284,15 @@ you should place your code here."
           ("i" "Idea" entry (file+datetree "~/git/org/idea.org")
            "* %?\n on %U\n %i\n %a")
           ("j" "Journal" entry (file+datetree "~/git/org/journal.org")
-           "* %?\n on %U\n %i\n %a"))))
+           "* %?\n on %U\n %i\n %a")))
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((scheme . t)
+     (emacs-lisp . t)
+     (python . t)
+     (java . t)
+     (clojure . t)
+     (sh . t))))
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
