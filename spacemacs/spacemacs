@@ -265,6 +265,15 @@ you should place your code here."
   ;; comment/uncomment
   (global-set-key (kbd "M-/") 'comment-or-uncomment-region)
 
+  ;;for smart-parens
+  (define-key smartparens-mode-map (kbd "C-<right>") 'sp-forward-slurp-sexp)
+  (define-key smartparens-mode-map (kbd "C-<left>") 'sp-forward-barf-sexp)
+
+  ;;fixed-size line num & add padding
+  (eval-after-load "linum"
+    '(set-face-attribute 'linum nil :height 140))
+  (setq linum-format (concat linum-format " "))
+
 
   ;; use apsell as ispell backend
   (setq-default ispell-program-name "aspell")
