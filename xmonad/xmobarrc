@@ -12,7 +12,7 @@ Config {
    -- layout
    , sepChar =  "%"   -- delineator between plugin names and straight text
    , alignSep = "}{"  -- separator between left-right alignment
-   , template = "  %UnsafeStdinReader% }{ %dynnetwork% | <action=`pcmanfm-qt` button=1> %disku% </action>|  %multicpu% |  %coretemp% | %memory% |  %battery%  |  %bright% | %date% | <action=`/home/sam/git/myenv/xmonad/script/tray.sh` button=1>  </action> "
+   , template = "  %UnsafeStdinReader% }{ %dynnetwork% | <action=`pcmanfm-qt` button=1> %disku% </action>|  %multicpu% |  %coretemp% | %memory% |  %battery%  |  %bright% | ♫ %volume% | %date% | <action=`/home/sam/git/myenv/xmonad/script/tray.sh` button=1>  </action> "
 
    -- general behavior
    , lowerOnStart =     True    -- send to bottom of window stack on start
@@ -84,7 +84,8 @@ Config {
           , Run Date "<action=`/home/sam/git/myenv/xmonad/script/calc.sh` button=1><fc=#00ff00>%H:%M</fc></action>" "date" 20
         , Run DiskU [("/", " <free>"), ("/mnt/data", ":<free>")] ["-L", "20", "-H", "50", "-m", "1", "-p", "3"] 30
           --, Run Brightness ["-D", "intel_backlight"] 60
-        ,Run Com  "sh" ["/home/sam/git/myenv/xmonad/script/backlight.sh"] "bright" 10
+        ,Run Com "sh" ["/home/sam/git/myenv/xmonad/script/backlight.sh"] "bright" 10
+        ,Run Com "sh" ["/home/sam/git/myenv/xmonad/script/volume.sh"] "volume" 10
         , Run UnsafeStdinReader
     ]
    }
