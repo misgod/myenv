@@ -68,6 +68,8 @@ keysToAdd x = [((mod4Mask, xK_F4), kill)
               ,((mod4Mask .|. shiftMask, xK_Left ), sendMessage $ Swap L)
               ,((mod4Mask .|. shiftMask, xK_Up   ), sendMessage $ Swap U)
               ,((mod4Mask .|. shiftMask, xK_Down ), sendMessage $ Swap D)
+              ,((mod4Mask .|. controlMask, xK_Up),  spawn "amixer -q sset Master 5%+")
+              ,((mod4Mask .|. controlMask, xK_Down),  spawn "amixer -q sset Master %-")
               ] 
 
 keysToDel x = [] --[((mod4Mask .|. shiftMask), xK_c)] 
