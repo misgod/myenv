@@ -1,7 +1,7 @@
 Config { 
 
    -- appearance
-     font =         "xft:DevaVu Sans Mono:size=12,FontAwesome:size=10:normal:antialias=true"
+     font =         "xft:DevaVu Sans Mono:size=12,FontAwesome:size=11:normal:antialias=true"
    , bgColor =      "black"
    , fgColor =      "#a0a0a0"
    , position =     BottomW L 100
@@ -12,7 +12,7 @@ Config {
    -- layout
    , sepChar =  "%"   -- delineator between plugin names and straight text
    , alignSep = "}{"  -- separator between left-right alignment
-   , template = "  %UnsafeStdinReader% }{ %dynnetwork% | <action=`pcmanfm-qt` button=1> %disku% </action>|  %multicpu% |  %coretemp% | %memory% |  %battery%  |  %bright% | ♫ %volume% | %date% | <action=`/home/sam/git/myenv/xmonad/script/tray.sh` button=1>  </action> "
+   , template = "  %UnsafeStdinReader% }{ %dynnetwork% | <action=`pcmanfm-qt` button=1> %disku% </action>|  %multicpu% |  %coretemp% | %memory% |  %battery%  |  %bright% |  %volume% | %date% | <action=`/home/sam/git/myenv/xmonad/script/tray.sh` button=1>  </action> "
 
    -- general behavior
    , lowerOnStart =     True    -- send to bottom of window stack on start
@@ -59,7 +59,7 @@ Config {
                              ] 50
                           
         -- memory usage monitor
-        , Run Memory         [ "--template" ,"<action=`urxvt -name htop -e htop` button=1><used>㏔</action>"
+        , Run Memory         [ "--template" ,"<action=`urxvt -name htop -e htop` button=1><used> mb</action>"
                              , "--Low"      , "3000"        -- units: Mb
                              , "--High"     , "7000"        -- units: Mb
                              , "--low"      , "gray"
@@ -79,7 +79,7 @@ Config {
                                     , "-o"  , "<left>% (<timeleft>)"
                              ] 50
 
-        , Run DynNetwork ["-t", "↑<tx>↓<rx>", "-S","True"] 20                    
+        , Run DynNetwork ["-t", " <tx>   <rx>", "-S","True"] 20                    
           --, Run Volume "default" "Master" [] 10
           , Run Date "<action=`/home/sam/git/myenv/xmonad/script/calc.sh` button=1><fc=#00ff00>%H:%M</fc></action>" "date" 20
         , Run DiskU [("/", " <free>"), ("/mnt/data", ":<free>")] ["-L", "20", "-H", "50", "-m", "1", "-p", "3"] 30
