@@ -18,6 +18,9 @@ values."
    ;; of a list then all discovered layers will be installed.
    dotspacemacs-configuration-layers
    '(
+     javascript
+     javascript
+     html
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
@@ -269,6 +272,21 @@ you should place your code here."
   (define-key smartparens-mode-map (kbd "C-<right>") 'sp-forward-slurp-sexp)
   (define-key smartparens-mode-map (kbd "C-<left>") 'sp-forward-barf-sexp)
 
+
+  ;;for hymode
+  (defun lisp-eval-buffer ()
+    (interactive)
+    (lisp-eval-region (point-min) (point-max)))
+
+  (defun hy-mode-config ()
+    (local-set-key (kbd "C-C C-e") 'lisp-eval-last-sexp)
+    (local-set-key (kbd "C-C C-c") 'lisp-eval-defun)
+    (local-set-key (kbd "C-C C-k") 'lisp-eval-buffer))
+
+  ;; add to hook
+  (add-hook 'hy-mode-hook 'hy-mode-config)
+
+
   ;;fixed-size line num & add padding
   (eval-after-load "linum"
     '(set-face-attribute 'linum nil :height 140))
@@ -313,7 +331,9 @@ you should place your code here."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(package-selected-packages
+   (quote
+    (web-beautify livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-refactor js2-mode js-doc company-tern dash-functional tern coffee-mode winum unfill fuzzy paredit log4e web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode helm-css-scss haml-mode emmet-mode company-web web-completion-data packed evil avy alert bind-key powerline org markdown-mode git-gutter flycheck websocket hydra inflections multiple-cursors cider seq spinner clojure-mode auto-complete anaconda-mode company highlight anzu iedit smartparens bind-map undo-tree yasnippet request helm helm-core magit magit-popup git-commit with-editor async projectile f s dash yapfify uuidgen py-isort org-projectile org-download mwim live-py-mode link-hint hide-comnt git-link flyspell-correct-helm flyspell-correct eyebrowse evil-visual-mark-mode evil-unimpaired evil-ediff dumb-jump column-enforce-mode clojure-snippets yaml-mode ws-butler window-numbering which-key volatile-highlights vi-tilde-fringe use-package toc-org spacemacs-theme spaceline solarized-theme smooth-scrolling smeargle restart-emacs rainbow-delimiters quelpa pyvenv pytest pyenv-mode py-yapf popwin pip-requirements persp-mode pcre2el paradox pangu-spacing page-break-lines orgit org-repo-todo org-present org-pomodoro org-plus-contrib org-bullets open-junk-file neotree move-text mmm-mode markdown-toc magit-gitflow macrostep lorem-ipsum linum-relative leuven-theme info+ indent-guide ido-vertical-mode hy-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation help-fns+ helm-themes helm-swoop helm-pydoc helm-projectile helm-mode-manager helm-make helm-gitignore helm-flyspell helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag google-translate golden-ratio gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger git-gutter-fringe git-gutter-fringe+ gh-md geiser flycheck-pos-tip flx-ido find-by-pinyin-dired fill-column-indicator fancy-battery expand-region exec-path-from-shell evil-visualstar evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-args evil-anzu elisp-slime-nav ein diff-hl define-word cython-mode company-statistics company-quickhelp company-anaconda clj-refactor clean-aindent-mode cider-eval-sexp-fu chinese-pyim buffer-move bracketed-paste auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile aggressive-indent adaptive-wrap ace-window ace-pinyin ace-link ace-jump-helm-line ac-ispell))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
