@@ -1,5 +1,5 @@
 ! set fonts
-URxvt.font: xft:Monaco:pixelsize=16:aliasing=true,xft:WenQuanYi Micro Hei Mono:pixelsize=16:aliasing=true
+URxvt.font: xft:Monaco:size=16:aliasing=true,xft:WenQuanYi Micro Hei Mono:size=16:aliasing=true
 
 !URxvt.internalBorder:     0
 !URxvt*selectToClipboard:  true
@@ -25,8 +25,8 @@ URxvt.letterSpace: -1
 URxvt.iso14755: false
 URxvt.iso14755_52: false
 
-URxvt.perl-ext-common: default,matcher,resize-font
-URxvt*url-launcher:    /usr/bin/chromium
+URxvt.perl-ext-common: default,matcher,font-size
+URxvt*url-launcher:    /usr/bin/firefox
 URxvt.matcher.button: 1
 
 ! resize key:
@@ -67,3 +67,13 @@ URxvt*color14:            #63e9e9
 ! white dark/light
 URxvt*color7:             #d3d7cf
 URxvt*color15:            #eeeeec
+
+
+Xft.dpi: 144
+!Xft.dpi: 128
+Xft.autohint: 0
+Xft.lcdfilter:  lcddefault
+Xft.hintstyle:  hintslight
+Xft.hinting: 1
+Xft.antialias: 1
+Xft.rgba: rgb

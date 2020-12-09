@@ -18,6 +18,9 @@ import XMonad.Layout.MultiToggle
 import XMonad.Layout.MultiToggle.Instances
 import qualified Data.Map as M
 import qualified XMonad.StackSet as W
+import qualified DBus as D
+import qualified DBus.Client as D
+import qualified Codec.Binary.UTF8.String as UTF8
 
 
 xmobarEscape = concatMap doubleLts
@@ -34,30 +37,34 @@ myWorkspaces = clickable . (map xmobarEscape) $ ws
                                       let n = i ]
 
 myManageHook = composeAll 
-        [ className =? "Skype" --> doShift "2:chat"
-        , className =? "Chromium" --> viewShift "2:web"
-        , className =? "Firefox"  --> viewShift "2:web"
+        [ className =? "sky" --> doShift "2:chat"
+        , className =? "chromium" --> viewShift "2:web"
+        , className =? "navigator"  --> viewShift "2:web"
         , className =? "jetbrains-idea-ce" --> doShift "3:dev"
         , className =? "Emacs" --> doShift "3:dev"
         , className =? "Gimp" --> viewShift "1:main"
         , className =? "lximage-qt" --> doFloat 
-    , className =? "transmission" --> doShift "7"
+        , className =? "transmission" --> doShift "7"
         , className =? "smplayer" --> viewShift "1:main"
         , className =? "Vlc" --> viewShift "1:main"
-    , className =? "htop" --> doCenterFloat
-    , className =? "sublime-text" --> viewShift "3:dev"
-    , resource  =? "libreoffice" --> doShift "5:doc"
-    , transience'
+        , className =? "htop" --> doCenterFloat
+        , className =? "sublime-text" --> viewShift "3:dev"
+        , resource  =? "libreoffice" --> doShift "5:doc"
+        , transience'
         , isFullscreen --> doFullFloat
-    , isDialog --> doCenterFloat
+        , isDialog --> doCenterFloat
         ]
         where viewShift = doF . liftM2 (.) W.greedyView W.shift
 
 
 keysToAdd x = [((mod4Mask, xK_F4), kill)
-              ,((mod4Mask, xK_p) , spawn "j4-dmenu-desktop --dmenu=\"dmenu -i -p '->' -l 5 -fn 'Sans-14'\"")
-              ,((mod4Mask, xK_Return) , spawn "urxvt")
-              ,((mod4Mask, xK_a) , spawn "pcmanfm-qt")
+              ,((mod4Mask, xK_p) , spawn "rofi -show drun")
+              ,((mod4Mask, xK_Return) , spawn "urxvt -e fish")
+	      ,((mod4Mask .|. shiftMask, xK_Return) , spawn "alacritty") 
+              ,((mod4Mask, xK_q) , spawn "alacritty --class hunter -e hunter")
+              ,((mod4Mask, xK_a) , spawn "dolphin")
+              ,((mod4Mask, xK_v) , spawn "xcalib -i -a")
+              ,((mod4Mask, xK_r) , spawn "xmonad --restart")
               ,((mod1Mask .|. controlMask, xK_Delete), spawn "urxvt -name htop -e htop") 
               ,((mod4Mask, xK_f), sendMessage $ Toggle NBFULL)
               ,((mod4Mask,                 xK_Right), sendMessage $ Go R)
@@ -69,13 +76,15 @@ keysToAdd x = [((mod4Mask, xK_F4), kill)
               ,((mod4Mask .|. shiftMask, xK_Up   ), sendMessage $ Swap U)
               ,((mod4Mask .|. shiftMask, xK_Down ), sendMessage $ Swap D)
               ,((mod4Mask .|. controlMask, xK_Up),  spawn "amixer -q sset Master 5%+")
-              ,((mod4Mask .|. controlMask, xK_Down),  spawn "amixer -q sset Master %-")
+              ,((mod4Mask .|. controlMask, xK_Down),  spawn "amixer -q sset Master 5%-")
+              ,((mod4Mask .|. controlMask, xK_Left),  spawn "xbacklight -dec 2")
+              ,((mod4Mask .|. controlMask, xK_Right),  spawn "xbacklight -inc 3")
               ] 
 
 keysToDel x = [] --[((mod4Mask .|. shiftMask), xK_c)] 
 
 -- keysToAdd can override default key-bindings
-newKeys x = M.union (M.fromList (keysToAdd x))  (keys defaultConfig x) 
+newKeys x = M.union (M.fromList (keysToAdd x))  (keys def x) 
 myKeys x = foldr M.delete (newKeys x) (keysToDel x) 
 
 -- Command to launch the bar.
@@ -93,6 +102,7 @@ myLayoutHook = (windowNavigation . mkToggle (single NBFULL) ) $ Grid ||| Mirror 
                   nmaster = 1
                   ratio   = 1/2
                   delta   = 3/100
+
 
 
 -- Key binding to toggle the gap for the bar.
@@ -114,5 +124,34 @@ myConfig = desktopConfig
             spawn "xsetroot -cursor_name left_ptr"
      }  
 
-main = xmonad =<< statusBar myBar myPP toggleStrutsKey myConfig
 
+
+-- main = do
+--     dbus <- D.connectSession
+--     -- Request access to the DBus name
+--     D.requestName dbus (D.busName_ "org.xmonad.Log")
+--         [D.nameAllowReplacement, D.nameReplaceExisting, D.nameDoNotQueue]
+    
+--     xmonad $ def { logHook = dynamicLogWithPP (myLogHook dbus) }
+
+
+
+
+
+main =  xmonad =<< statusBar myBar myPP toggleStrutsKey myConfig -- { logHook = dynamicLogWithPP (myLogHook dbus) }
+
+
+-- myLogHook :: D.Client -> PP
+-- myLogHook dbus = def { ppOutput = dbusOutput dbus }
+    
+-- -- Emit a DBus signal on log updates
+-- dbusOutput :: D.Client -> String -> IO ()
+-- dbusOutput dbus str = do
+--     let signal = (D.signal objectPath interfaceName memberName) {
+--             D.signalBody = [D.toVariant $ UTF8.decodeString str]
+--         }
+--     D.emit dbus signal
+--   where
+--     objectPath = D.objectPath_ "/org/xmonad/Log"
+--     interfaceName = D.interfaceName_ "org.xmonad.Log"
+--     memberName = D.memberName_ "Update"
