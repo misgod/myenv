@@ -21,7 +21,11 @@ import qualified XMonad.StackSet as W
 import qualified DBus as D
 import qualified DBus.Client as D
 import qualified Codec.Binary.UTF8.String as UTF8
+import Data.List
 
+-- IntelliJ fix
+(~=?) :: Eq a => Query [a] -> [a] -> Query Bool
+q ~=? x = fmap (isInfixOf x) q
 
 xmobarEscape = concatMap doubleLts
   where doubleLts '<' = "<<"
@@ -50,6 +54,7 @@ myManageHook = composeAll
         , className =? "htop" --> doCenterFloat
         , className =? "sublime-text" --> viewShift "3:dev"
         , resource  =? "libreoffice" --> doShift "5:doc"
+        , (className =? "jetbrains-studio") <&&> (title ~=? "win") --> doIgnore
         , transience'
         , isFullscreen --> doFullFloat
         , isDialog --> doCenterFloat
@@ -102,8 +107,6 @@ myLayoutHook = (windowNavigation . mkToggle (single NBFULL) ) $ Grid ||| Mirror 
                   nmaster = 1
                   ratio   = 1/2
                   delta   = 3/100
-
-
 
 -- Key binding to toggle the gap for the bar.
 toggleStrutsKey XConfig {XMonad.modMask = modMask} = (modMask, xK_b)
